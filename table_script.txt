@@ -1,0 +1,42 @@
+CREATE TABLE STATION(
+	STATION_NO number(20) NOT NULL,
+	NAME varchar2(20) NOT NULL,
+	ADDRESS varchar2(20),
+	CITY varchar2(20),
+	ZIP_CODE number(5),
+	STATE varchar2(20),
+	ENABLE number(1),
+	primary key (STATION_NO));
+
+CREATE TABLE TRAIN(
+	TRAIN_NO number(20) NOT NULL,
+	TOTAL_TICKET_QTY number(20) NOT NULL,
+	ENABLE number(2),
+	primary key (TRAIN_NO));
+
+CREATE TABLE SCHEDULE(
+	SCHEDULE_NO number(20) NOT NULL,
+	SECTION_NO number(20) NOT NULL,
+	EXECUTE_DATE date,
+	SOLD_TICKET_QTY number(20),
+	primary key (SCHEDULE_NO),
+	CONSTRAINT S_NO foreign key (SECTION_NO) references SECTION (SECTION_NO));
+
+CREATE TABLE SECTION(
+	SECTION_NO number(20) NOT NULL,
+	TRAIN_NO number(20) NOT NULL,
+	DEPARTURE_STATION number(20) NOT NULL,
+	ARRIVAL_STATION number(20) NOT NULL,
+	TRAVEL_DURATION number(20),
+	STOP_DURATION number(20),
+	SEQ_NO number(20) NOT NULL,
+	SECTION_PRICE number(20),
+	ENABLE number(1),
+	primary key (SECTION_NO),
+	CONSTRAINT T_NO foreign key (TRAIN_NO) references TRAIN (TRAIN_NO),
+	CONSTRAINT D_S foreign key (DEPARTURE_STATION) references STATION(STATION_NO),
+	CONSTRAINT A_S foreign key (ARRIVAL_STATION) references STATION(STATION_NO));
+	
+
+
+	
